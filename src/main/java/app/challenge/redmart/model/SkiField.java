@@ -26,11 +26,11 @@ public class SkiField {
         skiWidth = skiArea[1];
         this.skiCoordinates = new HashMap<>(skiLength * skiWidth);
 
-        for(int heightIdx=0; heightIdx< arrInt.size(); heightIdx++){
-            int[] arrLength = arrInt.get(heightIdx);
+        for(int widthIdx=0; widthIdx< arrInt.size(); widthIdx++){
+            int[] arrLength = arrInt.get(widthIdx);
             for(int lengthIdx =0; lengthIdx< arrLength.length; lengthIdx++){
-                int id = skiWidth * heightIdx + lengthIdx;
-                skiCoordinates.put(id, new Coordinate(id, lengthIdx, heightIdx, arrLength[lengthIdx] ));
+                int id = skiWidth * widthIdx + lengthIdx;
+                skiCoordinates.put(id, new Coordinate(id, lengthIdx, widthIdx, arrLength[lengthIdx] ));
             }
         }
     }
@@ -39,9 +39,9 @@ public class SkiField {
         return this.skiCoordinates.values();
     }
 
-    public Coordinate getCoordinate(int length, int height){
-        if(length > this.skiLength || length < 0 || height > this.skiWidth || height < 0) return null;
-        int id = height * this.skiWidth + length;
+    public Coordinate getCoordinate(int length, int width){
+        if(length > this.skiLength || length < 0 || width > this.skiWidth || width < 0) return null;
+        int id = width * this.skiWidth + length;
         return skiCoordinates.get(id);
     }
 
@@ -69,17 +69,21 @@ public class SkiField {
 
         Coordinate[] nextCoordinates = getAllPossibleNextCoordinates(coordinate);
 
+
         // Find longest next path
         Path nextPath = null;
         for(Coordinate nextCoordinate: nextCoordinates){
-            Path tempPath = getLongestFrom(nextCoordinate);
+            Path tempPath = new Path();
+            tempPath.addCoordinate(coordinate);
+            tempPath.addPath(getLongestFrom(nextCoordinate));
             if(nextPath == null) nextPath = tempPath;
             else if(tempPath.isLongerThan(nextPath)) nextPath = tempPath;
         }
 
         path = new Path();
-        path.addCoordinate(coordinate);
+
         if(nextPath != null) path.addPath(nextPath);
+        else path.addCoordinate(coordinate);
 
         pathManager.addLongestPath(coordinate, path);
 

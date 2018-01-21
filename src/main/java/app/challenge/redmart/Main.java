@@ -33,7 +33,7 @@ public class Main {
 
                 SkiField field = new SkiField(lines);
                 Path longestPath = getLongestPath(field);
-                if(longestPath != null) System.out.println("[length:" + longestPath.getLength() + "][drop:" + longestPath.getDrop() + "] Path:" + longestPath);
+                if(longestPath != null) System.out.println("Longest Path on The Map has [length:" + longestPath.getLength() + "][drop:" + longestPath.getDrop() + "]");
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -43,9 +43,11 @@ public class Main {
     private static Path getLongestPath(SkiField field){
 
         Collection<Coordinate> coordinates = field.getCoordinates();
-        return coordinates.parallelStream()
+        return coordinates.stream()
                 .map(field::getLongestFrom)
-                .max((pathA, pathB) -> pathA.isLongerThan(pathB)? 1 : -1).orElse(null);
+                .filter(path -> path.getDrop() > 1410 && path.getLength() > 14)
+                .max((pathA, pathB) -> pathA.isLongerThan(pathB)? 1 : -1).orElse(null)
+                ;
     }
 
 }

@@ -38,6 +38,7 @@ public class Path {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("[length:" + this.getLength() + "][drop:" + this.getDrop() + "]");
         this.coordinates.forEach(sb::append);
         return sb.toString();
     }

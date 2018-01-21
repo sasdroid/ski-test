@@ -46,8 +46,9 @@ public class SkiFieldTest {
 
     @Test
     public void givenSkiField4x4AndFromCoordinateId6_whenGetLongestPath_thenReturnPathWithLength5(){
-        Coordinate fromCoordinate = skiField.getCoordinate(2, 1);
+        Coordinate fromCoordinate = skiField.getCoordinate(3, 3);
         Path path = skiField.getLongestFrom(fromCoordinate);
+        System.out.println("[length:" + path.getLength() + "][drop:" + path.getDrop() + "] Path:" + path);
         assertEquals("Path length is wrong", 5, path.getLength());
     }
 }

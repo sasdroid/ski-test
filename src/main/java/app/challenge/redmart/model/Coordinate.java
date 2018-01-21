@@ -15,6 +15,6 @@ public class Coordinate {
 
     @Override
     public String toString() {
-        return "[axis:" + axis + "][ordinate:" + ordinate + "][elevation:" + elevation + "]";
+        return "[id:" + id + "][axis:" + axis + "][ordinate:" + ordinate + "][elevation:" + elevation + "]";
     }
 }
