@@ -69,15 +69,13 @@ public class SkiField {
 
         Coordinate[] nextCoordinates = getAllPossibleNextCoordinates(coordinate);
 
-
         // Find longest next path
         Path nextPath = null;
         for(Coordinate nextCoordinate: nextCoordinates){
             Path tempPath = new Path();
             tempPath.addCoordinate(coordinate);
             tempPath.addPath(getLongestFrom(nextCoordinate));
-            if(nextPath == null) nextPath = tempPath;
-            else if(tempPath.isLongerThan(nextPath)) nextPath = tempPath;
+            if(nextPath == null || tempPath.isLongerThan(nextPath)) nextPath = tempPath;
         }
 
         path = new Path();
